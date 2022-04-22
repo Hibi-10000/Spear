@@ -1,11 +1,10 @@
-# Spear
+# Spear  
 
----
 Bukkit Plugin for Bukkit 1.17.1~  
   
 このプラグインはPlugin SpearMod( https://dev.bukkit.org/projects/spear-mod )のフォークです  
 
-すべての槍は左クリックで発射します
+すべての槍は左クリックで発射します  
 
 Spears:  
 - Normal Spear : 15ダメージの槍
