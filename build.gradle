@@ -1,0 +1,95 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'java-library'
+    id 'net.minecrell.plugin-yml.bukkit' version '0.5.1'
+}
+
+group 'com.github.hibi_10000.plugins'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://hub.spigotmc.org/nexus/content/groups/public' }
+}
+
+dependencies {
+    api 'org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+bukkit {
+    // Default values can be overridden if needed
+    name = rootProject.name
+    version = project.version
+    description = 'This is a channelchat plugin'
+    website = 'https://github.com/Hibi-10000'
+    author = 'Hibi_10000'
+
+    // Plugin main class (required)
+    main = 'com.github.hibi_10000.plugins.spear.Spear'
+
+    // API version (should be set for 1.13+)
+    apiVersion = '1.17'
+
+    // Other possible properties from plugin.yml (optional)
+    //load = 'STARTUP' // or 'POSTWORLD'
+    //authors = ['Notch', 'Notch2']
+    //depend = ['WorldEdit']
+    //softDepend = ['Essentials']
+    //loadBefore = ['BrokenPlugin']
+    //prefix = 'TEST'
+    defaultPermission = 'OP' // 'TRUE', 'FALSE', 'OP' or 'NOT_OP'
+    //provides = ['TestPluginOldName', 'TestPlug']
+
+    //noinspection GroovyAssignabilityCheck
+    commands {
+        'givespear' {
+            description = 'Give a spear'
+            //aliases = ['ch', 'cc', 'chat']
+            //permission = 'test'
+            //usage = ''
+            // permissionMessage = 'You may not test this command!'
+        }
+    }
+
+    //noinspection GroovyAssignabilityCheck
+    permissions {
+        'spear.all' {
+            children = ['spear.give', 'spear.normal', 'spear.fire', 'spear.explosive','spear.zeus','spear.tele','spear.mob'] // Defaults permissions to true
+            // You can also specify the values of the permissions
+            //childrenMap = ['test': false]
+        }
+        'spear.give' {
+            description = 'Spear GiveSpear Command'
+            setDefault('OP') // 'TRUE', 'FALSE', 'OP' or 'NOT_OP'
+        }
+        'spear.normal' {
+            //description = 'ChannelChat Reload command'
+            setDefault('OP') // 'TRUE', 'FALSE', 'OP' or 'NOT_OP'
+        }
+        'spear.fire' {
+            //description = 'ChannelChat Reload command'
+            setDefault('OP') // 'TRUE', 'FALSE', 'OP' or 'NOT_OP'
+        }
+        'spear.explosive' {
+            //description = 'ChannelChat Reload command'
+            setDefault('OP') // 'TRUE', 'FALSE', 'OP' or 'NOT_OP'
+        }
+        'spear.zeus' {
+            //description = 'ChannelChat Reload command'
+            setDefault('OP') // 'TRUE', 'FALSE', 'OP' or 'NOT_OP'
+        }
+        'spear.tele' {
+            //description = 'ChannelChat Reload command'
+            setDefault('OP') // 'TRUE', 'FALSE', 'OP' or 'NOT_OP'
+        }
+        'spear.mob' {
+            //description = 'ChannelChat Reload command'
+            setDefault('OP') // 'TRUE', 'FALSE', 'OP' or 'NOT_OP'
+        }
+    }
+}
