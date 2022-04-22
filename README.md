@@ -1,4 +1,4 @@
-#Spear
+# Spear
 
 ---
 Bukkit Plugin for Bukkit 1.17.1~  
