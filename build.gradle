@@ -26,7 +26,7 @@ bukkit {
     name = rootProject.name
     version = project.version
     description = 'Throw spears!'
-    main = 'com.youngbawss22.bukkit.Main'
+    main = 'com.github.hibi_10000.plugins.spear.Main'
     apiVersion = '1.13'
 
     commands {

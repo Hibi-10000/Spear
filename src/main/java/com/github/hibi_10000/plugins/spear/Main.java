@@ -1,4 +1,4 @@
-package com.youngbawss22.bukkit;
+package com.github.hibi_10000.plugins.spear;
 
 import java.util.HashMap;
 import java.util.logging.Logger;
