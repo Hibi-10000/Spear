@@ -1,7 +1,0 @@
-name: SpearMod
-main: com.youngbawss22.bukkit.Main
-version: 2.4.1
-description: Throw spears!
-commands:
- givespear:
-  desription: Give a player a spear.
