@@ -93,7 +93,7 @@ public class Mech implements Listener {
     ShapedRecipe gunspear = new ShapedRecipe(stick);
     gunspear.shape(new String[] { "U  ", " S ", "  S" });
     gunspear.setIngredient('S', Material.STICK);
-    gunspear.setIngredient('U', Material.SULPHUR);
+    gunspear.setIngredient('U', Material.GUNPOWDER);
     this.plugin.getServer().addRecipe((Recipe)gunspear);
     return im;
   }
@@ -128,7 +128,7 @@ public class Mech implements Listener {
     telespear.shape(new String[] { "YE ", "ES ", "  S" });
     telespear.setIngredient('S', Material.STICK);
     telespear.setIngredient('E', Material.ENDER_PEARL);
-    telespear.setIngredient('Y', Material.EYE_OF_ENDER);
+    telespear.setIngredient('Y', Material.ENDER_EYE);
     this.plugin.getServer().addRecipe((Recipe)telespear);
     return im;
   }
@@ -300,7 +300,7 @@ public class Mech implements Listener {
                   } 
                 }   
           }
-        }1L);
+        }, 1L);
   }
   
   @EventHandler
