@@ -11,6 +11,6 @@ indent_style = space
 [*.java]
 indent_size = 4
 
-[.idea/*.xml]
+[.idea/**/*.xml]
 indent_size = 2
 insert_final_newline = false

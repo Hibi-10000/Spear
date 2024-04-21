@@ -31,7 +31,7 @@ public class Main extends JavaPlugin {
             Mech M = new Mech(this.plugin);
             if (sender instanceof Player) {
                 Player p = (Player) sender;
-                if (p.hasPermission("spearmod.give"))
+                if (p.hasPermission("spear.give"))
                     if (args.length == 0) {
                         p.sendMessage(ChatColor.RED + "Too few arguments!" + ChatColor.WHITE + " Do this: /givespear (playername) {spearname} [quantity]");
                     } else if (args.length == 1) {

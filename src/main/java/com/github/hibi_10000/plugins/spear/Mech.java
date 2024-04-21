@@ -150,7 +150,7 @@ public class Mech implements Listener {
         if (e.getAction() == Action.LEFT_CLICK_AIR) {
             if (p.getItemInHand().getItemMeta() != null) {
                 if (p.getItemInHand().getItemMeta().getDisplayName() == "Spear") {
-                    if (p.hasPermission("Spearmod.spear")) {
+                    if (p.hasPermission("spear.use.spear")) {
                         if (p.getItemInHand().getAmount() >= 2) {
                             p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
                             Arrow arrow = p.launchProjectile(Arrow.class);
@@ -164,7 +164,7 @@ public class Mech implements Listener {
                         p.sendMessage("You do not have sufficient permissions");
                     }
                 } else if (p.getItemInHand().getItemMeta().getDisplayName() == "Fire Spear") {
-                    if (p.hasPermission("Spearmod.firespear")) {
+                    if (p.hasPermission("spear.use.firespear")) {
                         if (p.getItemInHand().getAmount() >= 2) {
                             p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
                             Arrow arrow = p.launchProjectile(Arrow.class);
@@ -178,7 +178,7 @@ public class Mech implements Listener {
                         p.sendMessage("You do not have sufficient permissions");
                     }
                 } else if (p.getItemInHand().getItemMeta().getDisplayName() == "Explosive Spear") {
-                    if (p.hasPermission("Spearmod.explosivespear")) {
+                    if (p.hasPermission("spear.use.explosivespear")) {
                         if (p.getItemInHand().getAmount() >= 2) {
                             p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
                             Arrow arrow = p.launchProjectile(Arrow.class);
@@ -192,7 +192,7 @@ public class Mech implements Listener {
                         p.sendMessage("You do not have sufficient permissions");
                     }
                 } else if (p.getItemInHand().getItemMeta().getDisplayName() == "Zeus Spear") {
-                    if (p.hasPermission("Spearmod.zeusspear")) {
+                    if (p.hasPermission("spear.use.zeusspear")) {
                         if (p.getItemInHand().getAmount() >= 2) {
                             p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
                             Arrow arrow = p.launchProjectile(Arrow.class);
@@ -206,7 +206,7 @@ public class Mech implements Listener {
                         p.sendMessage("You do not have sufficient permissions");
                     }
                 } else if (p.getItemInHand().getItemMeta().getDisplayName() == "Tele Spear") {
-                    if (p.hasPermission("Spearmod.telespear")) {
+                    if (p.hasPermission("spear.use.telespear")) {
                         if (p.getItemInHand().getAmount() >= 2) {
                             p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
                             Arrow arrow = p.launchProjectile(Arrow.class);
@@ -220,7 +220,7 @@ public class Mech implements Listener {
                         p.sendMessage("You do not have sufficient permissions");
                     }
                 } else if (p.getItemInHand().getItemMeta().getDisplayName() == "Mob Spear") {
-                    if (p.hasPermission("Spearmod.mobspear")) {
+                    if (p.hasPermission("spear.use.mobspear")) {
                         if (p.getItemInHand().getAmount() >= 2) {
                             p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
                             Arrow arrow = p.launchProjectile(Arrow.class);

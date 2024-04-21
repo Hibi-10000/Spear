@@ -1,3 +1,5 @@
+import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
+
 plugins {
     java
     id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
@@ -31,5 +33,27 @@ bukkit {
         register("givespear") {
             description = "Give a player a spear."
         }
+    }
+    permissions {
+        register("spear.give") {
+            default = BukkitPluginDescription.Permission.Default.OP
+        }
+        register("spear.use.*") {
+            default = BukkitPluginDescription.Permission.Default.TRUE
+            children = listOf(
+                "spear.use.spear",
+                "spear.use.firespear",
+                "spear.use.explosivespear",
+                "spear.use.zeusspear",
+                "spear.use.telespear",
+                "spear.use.mobspear"
+            )
+        }
+        register("spear.use.spear")
+        register("spear.use.firespear")
+        register("spear.use.explosivespear")
+        register("spear.use.zeusspear")
+        register("spear.use.telespear")
+        register("spear.use.mobspear")
     }
 }
