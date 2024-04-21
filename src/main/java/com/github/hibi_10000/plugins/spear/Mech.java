@@ -45,7 +45,8 @@ public class Mech implements Listener {
         im.setDisplayName("Spear");
         im.setLore(lore);
         stick.setItemMeta(im);
-        ShapedRecipe spearr = new ShapedRecipe(stick);
+        NamespacedKey key = new NamespacedKey(this.plugin, this.regular_spear);
+        ShapedRecipe spearr = new ShapedRecipe(key, stick);
         spearr.shape("F  ", " S ", "  S");
         spearr.setIngredient('S', Material.STICK);
         spearr.setIngredient('F', Material.FLINT);
@@ -62,7 +63,8 @@ public class Mech implements Listener {
         im.setLore(lore);
         im.setDisplayName("Fire Spear");
         rod.setItemMeta(im);
-        ShapedRecipe firespear = new ShapedRecipe(rod);
+        NamespacedKey key = new NamespacedKey(this.plugin, this.fire_spear);
+        ShapedRecipe firespear = new ShapedRecipe(key, rod);
         firespear.shape("P  ", " B ", "  B");
         firespear.setIngredient('B', Material.BLAZE_ROD);
         firespear.setIngredient('P', Material.BLAZE_POWDER);
@@ -79,7 +81,8 @@ public class Mech implements Listener {
         im.setLore(lore);
         im.setDisplayName("Explosive Spear");
         stick.setItemMeta(im);
-        ShapedRecipe gunspear = new ShapedRecipe(stick);
+        NamespacedKey key = new NamespacedKey(this.plugin, this.explosive_spear);
+        ShapedRecipe gunspear = new ShapedRecipe(key, stick);
         gunspear.shape("U  ", " S ", "  S");
         gunspear.setIngredient('S', Material.STICK);
         gunspear.setIngredient('U', Material.GUNPOWDER);
@@ -96,7 +99,8 @@ public class Mech implements Listener {
         im.setLore(lore);
         im.setDisplayName("Zeus Spear");
         blaze.setItemMeta(im);
-        ShapedRecipe zeusspear = new ShapedRecipe(blaze);
+        NamespacedKey key = new NamespacedKey(this.plugin, this.zeus_spear);
+        ShapedRecipe zeusspear = new ShapedRecipe(key, blaze);
         zeusspear.shape("DD ", "DB ", "  B");
         zeusspear.setIngredient('B', Material.BLAZE_ROD);
         zeusspear.setIngredient('D', Material.DIAMOND);
@@ -113,7 +117,8 @@ public class Mech implements Listener {
         im.setLore(lore);
         im.setDisplayName("Teleport Spear");
         stick.setItemMeta(im);
-        ShapedRecipe telespear = new ShapedRecipe(stick);
+        NamespacedKey key = new NamespacedKey(this.plugin, this.teleport_spear);
+        ShapedRecipe telespear = new ShapedRecipe(key, stick);
         telespear.shape("YE ", "ES ", "  S");
         telespear.setIngredient('S', Material.STICK);
         telespear.setIngredient('E', Material.ENDER_PEARL);
@@ -131,7 +136,8 @@ public class Mech implements Listener {
         im.setLore(lore);
         im.setDisplayName("Mob Spear");
         bone.setItemMeta(im);
-        ShapedRecipe spawnspear = new ShapedRecipe(bone);
+        NamespacedKey key = new NamespacedKey(this.plugin, this.mob_spear);
+        ShapedRecipe spawnspear = new ShapedRecipe(key, bone);
         spawnspear.shape("EE ", "EB ", "  B");
         spawnspear.setIngredient('B', Material.BONE);
         spawnspear.setIngredient('E', Material.EGG);
