@@ -42,18 +42,18 @@ bukkit {
             default = BukkitPluginDescription.Permission.Default.TRUE
             children = listOf(
                 "spear.use.spear",
-                "spear.use.firespear",
-                "spear.use.explosivespear",
-                "spear.use.zeusspear",
-                "spear.use.telespear",
-                "spear.use.mobspear"
+                "spear.use.fire_spear",
+                "spear.use.explosive_spear",
+                "spear.use.zeus_spear",
+                "spear.use.teleport_spear",
+                "spear.use.mob_spear"
             )
         }
         register("spear.use.spear")
-        register("spear.use.firespear")
-        register("spear.use.explosivespear")
-        register("spear.use.zeusspear")
-        register("spear.use.telespear")
-        register("spear.use.mobspear")
+        register("spear.use.fire_spear")
+        register("spear.use.explosive_spear")
+        register("spear.use.zeus_spear")
+        register("spear.use.teleport_spear")
+        register("spear.use.mob_spear")
     }
 }

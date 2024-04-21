@@ -17,12 +17,12 @@ public class Main extends JavaPlugin {
         this.plugin = this;
         Mech M = new Mech(this.plugin);
         getServer().getPluginManager().registerEvents(M, this);
-        M.addRecipeSpear();
+        M.addRecipeRegularSpear();
         M.addRecipeFireSpear();
-        M.addRecipeGunSpear();
+        M.addRecipeExplosiveSpear();
         M.addRecipeZeusSpear();
-        M.addRecipeTeleSpear();
-        M.addRecipeSpawnSpear();
+        M.addRecipeTeleportSpear();
+        M.addRecipeMobSpear();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class Main extends JavaPlugin {
                         p.sendMessage(ChatColor.RED + "Too few arguments!" + ChatColor.WHITE + " Do this: /givespear (playername) {spearname} [quantity]");
                     } else if (args.length == 1) {
                         if (args[0].equalsIgnoreCase("options")) {
-                            p.sendMessage(ChatColor.GREEN + "Spear Types: " + ChatColor.WHITE + "spear, firespear, explosivespear, zuesspear, telespear, mobspear.");
+                            p.sendMessage(ChatColor.GREEN + "Spear Types: " + ChatColor.WHITE + "spear, fire_spear, explosive_spear, zeus_spear, teleport_spear, mob_spear.");
                         } else {
                             p.sendMessage(ChatColor.RED + "Too few arguments!" + ChatColor.WHITE + " Do this: /givespear (playername) {spearname} [quantity]");
                         }
@@ -44,32 +44,32 @@ public class Main extends JavaPlugin {
                         Player tp = p.getServer().getPlayer(args[0]);
                         if (tp != null) {
                             if (args[1].equalsIgnoreCase("spear")) {
-                                ItemMeta im = M.addRecipeSpear();
+                                ItemMeta im = M.addRecipeRegularSpear();
                                 ItemStack is = new ItemStack(Material.STICK, 1);
                                 is.setItemMeta(im);
                                 tp.getInventory().addItem(is);
-                            } else if (args[1].equalsIgnoreCase("firespear")) {
+                            } else if (args[1].equalsIgnoreCase("fire_spear")) {
                                 ItemMeta im = M.addRecipeFireSpear();
                                 ItemStack is = new ItemStack(Material.BLAZE_ROD, 1);
                                 is.setItemMeta(im);
                                 tp.getInventory().addItem(is);
-                            } else if (args[1].equalsIgnoreCase("explosivespear")) {
-                                ItemMeta im = M.addRecipeGunSpear();
+                            } else if (args[1].equalsIgnoreCase("explosive_spear")) {
+                                ItemMeta im = M.addRecipeExplosiveSpear();
                                 ItemStack is = new ItemStack(Material.STICK, 1);
                                 is.setItemMeta(im);
                                 tp.getInventory().addItem(is);
-                            } else if (args[1].equalsIgnoreCase("zuesspear")) {
+                            } else if (args[1].equalsIgnoreCase("zeus_spear")) {
                                 ItemMeta im = M.addRecipeZeusSpear();
                                 ItemStack is = new ItemStack(Material.BLAZE_ROD, 1);
                                 is.setItemMeta(im);
                                 tp.getInventory().addItem(is);
-                            } else if (args[1].equalsIgnoreCase("telespear")) {
-                                ItemMeta im = M.addRecipeTeleSpear();
+                            } else if (args[1].equalsIgnoreCase("teleport_spear")) {
+                                ItemMeta im = M.addRecipeTeleportSpear();
                                 ItemStack is = new ItemStack(Material.STICK, 1);
                                 is.setItemMeta(im);
                                 tp.getInventory().addItem(is);
-                            } else if (args[1].equalsIgnoreCase("mobspear")) {
-                                ItemMeta im = M.addRecipeSpawnSpear();
+                            } else if (args[1].equalsIgnoreCase("mob_spear")) {
+                                ItemMeta im = M.addRecipeMobSpear();
                                 ItemStack is = new ItemStack(Material.BONE, 1);
                                 is.setItemMeta(im);
                                 tp.getInventory().addItem(is);
@@ -85,32 +85,32 @@ public class Main extends JavaPlugin {
                             try {
                                 int arg3 = Integer.parseInt(args[2]);
                                 if (args[1].equalsIgnoreCase("spear")) {
-                                    ItemMeta im = M.addRecipeSpear();
+                                    ItemMeta im = M.addRecipeRegularSpear();
                                     ItemStack is = new ItemStack(Material.STICK, arg3);
                                     is.setItemMeta(im);
                                     tp.getInventory().addItem(is);
-                                } else if (args[1].equalsIgnoreCase("firespear")) {
+                                } else if (args[1].equalsIgnoreCase("fire_spear")) {
                                     ItemMeta im = M.addRecipeFireSpear();
                                     ItemStack is = new ItemStack(Material.BLAZE_ROD, arg3);
                                     is.setItemMeta(im);
                                     tp.getInventory().addItem(is);
-                                } else if (args[1].equalsIgnoreCase("explosivespear")) {
-                                    ItemMeta im = M.addRecipeGunSpear();
+                                } else if (args[1].equalsIgnoreCase("explosive_spear")) {
+                                    ItemMeta im = M.addRecipeExplosiveSpear();
                                     ItemStack is = new ItemStack(Material.STICK, arg3);
                                     is.setItemMeta(im);
                                     tp.getInventory().addItem(is);
-                                } else if (args[1].equalsIgnoreCase("zuesspear")) {
+                                } else if (args[1].equalsIgnoreCase("zeus_spear")) {
                                     ItemMeta im = M.addRecipeZeusSpear();
                                     ItemStack is = new ItemStack(Material.BLAZE_ROD, arg3);
                                     is.setItemMeta(im);
                                     tp.getInventory().addItem(is);
-                                } else if (args[1].equalsIgnoreCase("telespear")) {
-                                    ItemMeta im = M.addRecipeTeleSpear();
+                                } else if (args[1].equalsIgnoreCase("teleport_spear")) {
+                                    ItemMeta im = M.addRecipeTeleportSpear();
                                     ItemStack is = new ItemStack(Material.STICK, arg3);
                                     is.setItemMeta(im);
                                     tp.getInventory().addItem(is);
-                                } else if (args[1].equalsIgnoreCase("mobspear")) {
-                                    ItemMeta im = M.addRecipeSpawnSpear();
+                                } else if (args[1].equalsIgnoreCase("mob_spear")) {
+                                    ItemMeta im = M.addRecipeMobSpear();
                                     ItemStack is = new ItemStack(Material.BONE, arg3);
                                     is.setItemMeta(im);
                                     tp.getInventory().addItem(is);
@@ -129,7 +129,7 @@ public class Main extends JavaPlugin {
                     s.sendMessage(ChatColor.RED + "Too few arguments! Do this: /givespear (playername) {spearname} [quantity]");
                 } else if (args.length == 1) {
                     if (args[0].equalsIgnoreCase("options")) {
-                        s.sendMessage(ChatColor.GREEN + "Spear Types: " + ChatColor.WHITE + "spear, firespear, explosivespear, zuesspear, telespear, mobspear.");
+                        s.sendMessage(ChatColor.GREEN + "Spear Types: " + ChatColor.WHITE + "spear, fire_spear, explosive_spear, zeus_spear, teleport_spear, mob_spear.");
                     } else {
                         s.sendMessage(ChatColor.RED + "Too few arguments!" + ChatColor.WHITE + " Do this: /givespear (playername) {spearname} [quantity]");
                     }
@@ -137,32 +137,32 @@ public class Main extends JavaPlugin {
                     Player tp = s.getServer().getPlayer(args[0]);
                     if (tp != null) {
                         if (args[1].equalsIgnoreCase("spear")) {
-                            ItemMeta im = M.addRecipeSpear();
+                            ItemMeta im = M.addRecipeRegularSpear();
                             ItemStack is = new ItemStack(Material.STICK, 1);
                             is.setItemMeta(im);
                             tp.getInventory().addItem(is);
-                        } else if (args[1].equalsIgnoreCase("firespear")) {
+                        } else if (args[1].equalsIgnoreCase("fire_spear")) {
                             ItemMeta im = M.addRecipeFireSpear();
                             ItemStack is = new ItemStack(Material.BLAZE_ROD, 1);
                             is.setItemMeta(im);
                             tp.getInventory().addItem(is);
-                        } else if (args[1].equalsIgnoreCase("explosivespear")) {
-                            ItemMeta im = M.addRecipeGunSpear();
+                        } else if (args[1].equalsIgnoreCase("explosive_spear")) {
+                            ItemMeta im = M.addRecipeExplosiveSpear();
                             ItemStack is = new ItemStack(Material.STICK, 1);
                             is.setItemMeta(im);
                             tp.getInventory().addItem(is);
-                        } else if (args[1].equalsIgnoreCase("zuesspear")) {
+                        } else if (args[1].equalsIgnoreCase("zeus_spear")) {
                             ItemMeta im = M.addRecipeZeusSpear();
                             ItemStack is = new ItemStack(Material.BLAZE_ROD, 1);
                             is.setItemMeta(im);
                             tp.getInventory().addItem(is);
-                        } else if (args[1].equalsIgnoreCase("telespear")) {
-                            ItemMeta im = M.addRecipeTeleSpear();
+                        } else if (args[1].equalsIgnoreCase("teleport_spear")) {
+                            ItemMeta im = M.addRecipeTeleportSpear();
                             ItemStack is = new ItemStack(Material.STICK, 1);
                             is.setItemMeta(im);
                             tp.getInventory().addItem(is);
-                        } else if (args[1].equalsIgnoreCase("mobspear")) {
-                            ItemMeta im = M.addRecipeSpawnSpear();
+                        } else if (args[1].equalsIgnoreCase("mob_spear")) {
+                            ItemMeta im = M.addRecipeMobSpear();
                             ItemStack is = new ItemStack(Material.BONE, 1);
                             is.setItemMeta(im);
                             tp.getInventory().addItem(is);
@@ -178,32 +178,32 @@ public class Main extends JavaPlugin {
                         try {
                             int arg3 = Integer.parseInt(args[2]);
                             if (args[1].equalsIgnoreCase("spear")) {
-                                ItemMeta im = M.addRecipeSpear();
+                                ItemMeta im = M.addRecipeRegularSpear();
                                 ItemStack is = new ItemStack(Material.STICK, arg3);
                                 is.setItemMeta(im);
                                 tp.getInventory().addItem(is);
-                            } else if (args[1].equalsIgnoreCase("firespear")) {
+                            } else if (args[1].equalsIgnoreCase("fire_spear")) {
                                 ItemMeta im = M.addRecipeFireSpear();
                                 ItemStack is = new ItemStack(Material.BLAZE_ROD, arg3);
                                 is.setItemMeta(im);
                                 tp.getInventory().addItem(is);
-                            } else if (args[1].equalsIgnoreCase("explosivespear")) {
-                                ItemMeta im = M.addRecipeGunSpear();
+                            } else if (args[1].equalsIgnoreCase("explosive_spear")) {
+                                ItemMeta im = M.addRecipeExplosiveSpear();
                                 ItemStack is = new ItemStack(Material.STICK, arg3);
                                 is.setItemMeta(im);
                                 tp.getInventory().addItem(is);
-                            } else if (args[1].equalsIgnoreCase("zuesspear")) {
+                            } else if (args[1].equalsIgnoreCase("zeus_spear")) {
                                 ItemMeta im = M.addRecipeZeusSpear();
                                 ItemStack is = new ItemStack(Material.BLAZE_ROD, arg3);
                                 is.setItemMeta(im);
                                 tp.getInventory().addItem(is);
-                            } else if (args[1].equalsIgnoreCase("telespear")) {
-                                ItemMeta im = M.addRecipeTeleSpear();
+                            } else if (args[1].equalsIgnoreCase("teleport_spear")) {
+                                ItemMeta im = M.addRecipeTeleportSpear();
                                 ItemStack is = new ItemStack(Material.STICK, arg3);
                                 is.setItemMeta(im);
                                 tp.getInventory().addItem(is);
-                            } else if (args[1].equalsIgnoreCase("mobspear")) {
-                                ItemMeta im = M.addRecipeSpawnSpear();
+                            } else if (args[1].equalsIgnoreCase("mob_spear")) {
+                                ItemMeta im = M.addRecipeMobSpear();
                                 ItemStack is = new ItemStack(Material.BONE, arg3);
                                 is.setItemMeta(im);
                                 tp.getInventory().addItem(is);

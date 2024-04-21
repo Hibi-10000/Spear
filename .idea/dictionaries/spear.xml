@@ -2,16 +2,10 @@
   <dictionary name="spear">
     <words>
       <w>dists</w>
-      <w>explosivespear</w>
-      <w>firespear</w>
       <w>givespear</w>
       <w>hibi</w>
       <w>minecrell</w>
-      <w>mobspear</w>
       <w>spear</w>
-      <w>tele</w>
-      <w>telespear</w>
-      <w>zeusspear</w>
     </words>
   </dictionary>
 </component>

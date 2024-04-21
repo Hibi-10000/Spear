@@ -25,23 +25,18 @@ public class Mech implements Listener {
 
     public HashMap<Entity, String> spearw = new HashMap<>();
 
-    public String reg_spear = "reg_spear";
-
+    public String regular_spear = "regular_spear";
     public String fire_spear = "fire_spear";
-
-    public String gun_spear = "gun_spear";
-
+    public String explosive_spear = "explosive_spear";
     public String zeus_spear = "zeus_spear";
-
-    public String tele_spear = "tele_spear";
-
+    public String teleport_spear = "teleport_spear";
     public String mob_spear = "mob_spear";
 
     public Mech(Main plugin) {
         this.plugin = plugin;
     }
 
-    public ItemMeta addRecipeSpear() {
+    public ItemMeta addRecipeRegularSpear() {
         ArrayList<String> lore = new ArrayList<>();
         ItemStack stick = new ItemStack(Material.STICK, 1);
         ItemMeta im = stick.getItemMeta();
@@ -75,7 +70,7 @@ public class Mech implements Listener {
         return im;
     }
 
-    public ItemMeta addRecipeGunSpear() {
+    public ItemMeta addRecipeExplosiveSpear() {
         ItemStack stick = new ItemStack(Material.STICK, 1);
         ItemMeta im = stick.getItemMeta();
         ArrayList<String> lore = new ArrayList<>();
@@ -109,14 +104,14 @@ public class Mech implements Listener {
         return im;
     }
 
-    public ItemMeta addRecipeTeleSpear() {
+    public ItemMeta addRecipeTeleportSpear() {
         ItemStack stick = new ItemStack(Material.STICK, 1);
         ItemMeta im = stick.getItemMeta();
         ArrayList<String> lore = new ArrayList<>();
         lore.add(ChatColor.BLUE + " Teleport yourself or others!");
         lore.add(ChatColor.RED + " Damage: 10");
         im.setLore(lore);
-        im.setDisplayName("Tele Spear");
+        im.setDisplayName("Teleport Spear");
         stick.setItemMeta(im);
         ShapedRecipe telespear = new ShapedRecipe(stick);
         telespear.shape("YE ", "ES ", "  S");
@@ -127,7 +122,7 @@ public class Mech implements Listener {
         return im;
     }
 
-    public ItemMeta addRecipeSpawnSpear() {
+    public ItemMeta addRecipeMobSpear() {
         ItemStack bone = new ItemStack(Material.BONE, 1);
         ItemMeta im = bone.getItemMeta();
         ArrayList<String> lore = new ArrayList<>();
@@ -154,17 +149,17 @@ public class Mech implements Listener {
                         if (p.getItemInHand().getAmount() >= 2) {
                             p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
                             Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.reg_spear);
+                            this.spearw.put(arrow, this.regular_spear);
                         } else if (p.getItemInHand().getAmount() == 1) {
                             p.getInventory().clear(p.getInventory().getHeldItemSlot());
                             Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.reg_spear);
+                            this.spearw.put(arrow, this.regular_spear);
                         }
                     } else {
                         p.sendMessage("You do not have sufficient permissions");
                     }
                 } else if (p.getItemInHand().getItemMeta().getDisplayName() == "Fire Spear") {
-                    if (p.hasPermission("spear.use.firespear")) {
+                    if (p.hasPermission("spear.use.fire_spear")) {
                         if (p.getItemInHand().getAmount() >= 2) {
                             p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
                             Arrow arrow = p.launchProjectile(Arrow.class);
@@ -178,21 +173,21 @@ public class Mech implements Listener {
                         p.sendMessage("You do not have sufficient permissions");
                     }
                 } else if (p.getItemInHand().getItemMeta().getDisplayName() == "Explosive Spear") {
-                    if (p.hasPermission("spear.use.explosivespear")) {
+                    if (p.hasPermission("spear.use.explosive_spear")) {
                         if (p.getItemInHand().getAmount() >= 2) {
                             p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
                             Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.gun_spear);
+                            this.spearw.put(arrow, this.explosive_spear);
                         } else if (p.getItemInHand().getAmount() == 1) {
                             p.getInventory().clear(p.getInventory().getHeldItemSlot());
                             Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.gun_spear);
+                            this.spearw.put(arrow, this.explosive_spear);
                         }
                     } else {
                         p.sendMessage("You do not have sufficient permissions");
                     }
                 } else if (p.getItemInHand().getItemMeta().getDisplayName() == "Zeus Spear") {
-                    if (p.hasPermission("spear.use.zeusspear")) {
+                    if (p.hasPermission("spear.use.zeus_spear")) {
                         if (p.getItemInHand().getAmount() >= 2) {
                             p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
                             Arrow arrow = p.launchProjectile(Arrow.class);
@@ -205,22 +200,22 @@ public class Mech implements Listener {
                     } else {
                         p.sendMessage("You do not have sufficient permissions");
                     }
-                } else if (p.getItemInHand().getItemMeta().getDisplayName() == "Tele Spear") {
-                    if (p.hasPermission("spear.use.telespear")) {
+                } else if (p.getItemInHand().getItemMeta().getDisplayName() == "Teleport Spear") {
+                    if (p.hasPermission("spear.use.teleport_spear")) {
                         if (p.getItemInHand().getAmount() >= 2) {
                             p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
                             Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.tele_spear);
+                            this.spearw.put(arrow, this.teleport_spear);
                         } else if (p.getItemInHand().getAmount() == 1) {
                             p.getInventory().clear(p.getInventory().getHeldItemSlot());
                             Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.tele_spear);
+                            this.spearw.put(arrow, this.teleport_spear);
                         }
                     } else {
                         p.sendMessage("You do not have sufficient permissions");
                     }
                 } else if (p.getItemInHand().getItemMeta().getDisplayName() == "Mob Spear") {
-                    if (p.hasPermission("spear.use.mobspear")) {
+                    if (p.hasPermission("spear.use.mob_spear")) {
                         if (p.getItemInHand().getAmount() >= 2) {
                             p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
                             Arrow arrow = p.launchProjectile(Arrow.class);
@@ -243,7 +238,7 @@ public class Mech implements Listener {
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
             if (e.getEntity() instanceof Arrow) {
                 if (Mech.this.spearw.containsKey(e.getEntity())) {
-                    if (Mech.this.spearw.containsValue(Mech.this.reg_spear)) {
+                    if (Mech.this.spearw.containsValue(Mech.this.regular_spear)) {
                         Mech.this.spearw.remove(e.getEntity());
                         e.getEntity().remove();
                     } else if (Mech.this.spearw.containsValue(Mech.this.fire_spear)) {
@@ -255,7 +250,7 @@ public class Mech implements Listener {
                         }, 200L);
                         Mech.this.spearw.remove(e.getEntity());
                         e.getEntity().remove();
-                    } else if (Mech.this.spearw.containsValue(Mech.this.gun_spear)) {
+                    } else if (Mech.this.spearw.containsValue(Mech.this.explosive_spear)) {
                         e.getEntity().getWorld().createExplosion(e.getEntity().getLocation(), 1.0F);
                         Mech.this.spearw.remove(e.getEntity());
                         e.getEntity().remove();
@@ -263,7 +258,7 @@ public class Mech implements Listener {
                         e.getEntity().getWorld().strikeLightning(e.getEntity().getLocation());
                         Mech.this.spearw.remove(e.getEntity());
                         e.getEntity().remove();
-                    } else if (Mech.this.spearw.containsValue(Mech.this.tele_spear)) {
+                    } else if (Mech.this.spearw.containsValue(Mech.this.teleport_spear)) {
                         Player p = (Player) e.getEntity().getShooter();
                         Location loc = e.getEntity().getLocation();
                         Mech.this.spearw.remove(e.getEntity());
@@ -301,14 +296,14 @@ public class Mech implements Listener {
     public void onHit2(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof Arrow) {
             if (this.spearw.containsKey(e.getDamager())) {
-                if (this.spearw.containsValue(this.reg_spear)) {
+                if (this.spearw.containsValue(this.regular_spear)) {
                     e.setDamage(15);
                     this.spearw.remove(e.getDamager());
                 } else if (this.spearw.containsValue(this.fire_spear)) {
                     e.getEntity().setFireTicks(200);
                     e.setDamage(15);
                     this.spearw.remove(e.getDamager());
-                } else if (this.spearw.containsValue(this.gun_spear)) {
+                } else if (this.spearw.containsValue(this.explosive_spear)) {
                     e.setDamage(15);
                     e.getDamager().getWorld().createExplosion(e.getEntity().getLocation(), 2.0F);
                     this.spearw.remove(e.getDamager());
@@ -317,7 +312,7 @@ public class Mech implements Listener {
                     e.getDamager().getWorld().strikeLightning(e.getDamager().getLocation());
                     e.getDamager().getWorld().createExplosion(e.getDamager().getLocation(), 3.0F);
                     this.spearw.remove(e.getDamager());
-                } else if (this.spearw.containsValue(this.tele_spear)) {
+                } else if (this.spearw.containsValue(this.teleport_spear)) {
                     Player p1 = (Player) ((Arrow) e.getDamager()).getShooter();
                     Entity p2 = e.getEntity();
                     Location p2loc = p2.getLocation();
