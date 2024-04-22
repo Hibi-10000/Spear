@@ -19,6 +19,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.function.Consumer;
 
 public class Mech implements Listener {
     public Main plugin;
@@ -36,113 +37,108 @@ public class Mech implements Listener {
         this.plugin = plugin;
     }
 
+    public ItemMeta addRecipeSpear(Material type, String name, ArrayList<String> lore, String key, Consumer<ShapedRecipe> recipeConsumer) {
+        ItemStack stack = new ItemStack(type, 1);
+        ItemMeta im = stack.getItemMeta();
+        im.setDisplayName(name);
+        im.setLore(lore);
+        stack.setItemMeta(im);
+        NamespacedKey namespacedKey = new NamespacedKey(this.plugin, key);
+        ShapedRecipe recipe = new ShapedRecipe(namespacedKey, stack);
+        recipeConsumer.accept(recipe);
+        this.plugin.getServer().addRecipe(recipe);
+        return im;
+    }
+
     public ItemMeta addRecipeRegularSpear() {
         ArrayList<String> lore = new ArrayList<>();
-        ItemStack stick = new ItemStack(Material.STICK, 1);
-        ItemMeta im = stick.getItemMeta();
         lore.add(ChatColor.BLUE + " Simple, but deadly.");
         lore.add(ChatColor.RED + " Damage: 15");
-        im.setDisplayName("Spear");
-        im.setLore(lore);
-        stick.setItemMeta(im);
-        NamespacedKey key = new NamespacedKey(this.plugin, this.regular_spear);
-        ShapedRecipe spearr = new ShapedRecipe(key, stick);
-        spearr.shape("F  ", " S ", "  S");
-        spearr.setIngredient('S', Material.STICK);
-        spearr.setIngredient('F', Material.FLINT);
-        this.plugin.getServer().addRecipe(spearr);
-        return im;
+        return addRecipeSpear(Material.STICK, "Spear", lore, this.regular_spear, recipe -> {
+            recipe.shape(
+                "F  ",
+                " S ",
+                "  S"
+            );
+            recipe.setIngredient('S', Material.STICK);
+            recipe.setIngredient('F', Material.FLINT);
+        });
     }
 
     public ItemMeta addRecipeFireSpear() {
-        ItemStack rod = new ItemStack(Material.BLAZE_ROD, 1);
-        ItemMeta im = rod.getItemMeta();
         ArrayList<String> lore = new ArrayList<>();
         lore.add(ChatColor.BLUE + " Set your enemy on fire!");
         lore.add(ChatColor.RED + " Damage: 15 + fire damage");
-        im.setLore(lore);
-        im.setDisplayName("Fire Spear");
-        rod.setItemMeta(im);
-        NamespacedKey key = new NamespacedKey(this.plugin, this.fire_spear);
-        ShapedRecipe firespear = new ShapedRecipe(key, rod);
-        firespear.shape("P  ", " B ", "  B");
-        firespear.setIngredient('B', Material.BLAZE_ROD);
-        firespear.setIngredient('P', Material.BLAZE_POWDER);
-        this.plugin.getServer().addRecipe(firespear);
-        return im;
+        return addRecipeSpear(Material.BLAZE_ROD, "Fire Spear", lore, this.fire_spear, recipe -> {
+            recipe.shape(
+                "P  ",
+                " B ",
+                "  B"
+            );
+            recipe.setIngredient('B', Material.BLAZE_ROD);
+            recipe.setIngredient('P', Material.BLAZE_POWDER);
+        });
     }
 
     public ItemMeta addRecipeExplosiveSpear() {
-        ItemStack stick = new ItemStack(Material.STICK, 1);
-        ItemMeta im = stick.getItemMeta();
         ArrayList<String> lore = new ArrayList<>();
         lore.add(ChatColor.BLUE + " Create a deadly explosion!");
         lore.add(ChatColor.RED + " Damage: 15 + explosion damage");
-        im.setLore(lore);
-        im.setDisplayName("Explosive Spear");
-        stick.setItemMeta(im);
-        NamespacedKey key = new NamespacedKey(this.plugin, this.explosive_spear);
-        ShapedRecipe gunspear = new ShapedRecipe(key, stick);
-        gunspear.shape("U  ", " S ", "  S");
-        gunspear.setIngredient('S', Material.STICK);
-        gunspear.setIngredient('U', Material.GUNPOWDER);
-        this.plugin.getServer().addRecipe(gunspear);
-        return im;
+        return addRecipeSpear(Material.STICK, "Explosive Spear", lore, this.explosive_spear, recipe -> {
+            recipe.shape(
+                "U  ",
+                " S ",
+                "  S"
+            );
+            recipe.setIngredient('S', Material.STICK);
+            recipe.setIngredient('U', Material.GUNPOWDER);
+        });
     }
 
     public ItemMeta addRecipeZeusSpear() {
-        ItemStack blaze = new ItemStack(Material.BLAZE_ROD, 1);
-        ItemMeta im = blaze.getItemMeta();
         ArrayList<String> lore = new ArrayList<>();
         lore.add(ChatColor.BLUE + " Harness the power of the skies!");
         lore.add(ChatColor.RED + " Damage: 30 + explosion damage");
-        im.setLore(lore);
-        im.setDisplayName("Zeus Spear");
-        blaze.setItemMeta(im);
-        NamespacedKey key = new NamespacedKey(this.plugin, this.zeus_spear);
-        ShapedRecipe zeusspear = new ShapedRecipe(key, blaze);
-        zeusspear.shape("DD ", "DB ", "  B");
-        zeusspear.setIngredient('B', Material.BLAZE_ROD);
-        zeusspear.setIngredient('D', Material.DIAMOND);
-        this.plugin.getServer().addRecipe(zeusspear);
-        return im;
+        return addRecipeSpear(Material.BLAZE_ROD, "Zeus Spear", lore, this.zeus_spear, recipe -> {
+            recipe.shape(
+                "DD ",
+                "DB ",
+                "  B"
+            );
+            recipe.setIngredient('B', Material.BLAZE_ROD);
+            recipe.setIngredient('D', Material.DIAMOND);
+        });
     }
 
     public ItemMeta addRecipeTeleportSpear() {
-        ItemStack stick = new ItemStack(Material.STICK, 1);
-        ItemMeta im = stick.getItemMeta();
         ArrayList<String> lore = new ArrayList<>();
         lore.add(ChatColor.BLUE + " Teleport yourself or others!");
         lore.add(ChatColor.RED + " Damage: 10");
-        im.setLore(lore);
-        im.setDisplayName("Teleport Spear");
-        stick.setItemMeta(im);
-        NamespacedKey key = new NamespacedKey(this.plugin, this.teleport_spear);
-        ShapedRecipe telespear = new ShapedRecipe(key, stick);
-        telespear.shape("YE ", "ES ", "  S");
-        telespear.setIngredient('S', Material.STICK);
-        telespear.setIngredient('E', Material.ENDER_PEARL);
-        telespear.setIngredient('Y', Material.ENDER_EYE);
-        this.plugin.getServer().addRecipe(telespear);
-        return im;
+        return addRecipeSpear(Material.STICK, "Teleport Spear", lore, this.teleport_spear, recipe -> {
+            recipe.shape(
+                "YE ",
+                "ES ",
+                "  S"
+            );
+            recipe.setIngredient('S', Material.STICK);
+            recipe.setIngredient('E', Material.ENDER_PEARL);
+            recipe.setIngredient('Y', Material.ENDER_EYE);
+        });
     }
 
     public ItemMeta addRecipeMobSpear() {
-        ItemStack bone = new ItemStack(Material.BONE, 1);
-        ItemMeta im = bone.getItemMeta();
         ArrayList<String> lore = new ArrayList<>();
         lore.add(ChatColor.BLUE + " Welcome to the dark side.");
         lore.add(ChatColor.RED + " Damage: 20");
-        im.setLore(lore);
-        im.setDisplayName("Mob Spear");
-        bone.setItemMeta(im);
-        NamespacedKey key = new NamespacedKey(this.plugin, this.mob_spear);
-        ShapedRecipe spawnspear = new ShapedRecipe(key, bone);
-        spawnspear.shape("EE ", "EB ", "  B");
-        spawnspear.setIngredient('B', Material.BONE);
-        spawnspear.setIngredient('E', Material.EGG);
-        this.plugin.getServer().addRecipe(spawnspear);
-        return im;
+        return addRecipeSpear(Material.BONE, "Mob Spear", lore, this.mob_spear, recipe -> {
+            recipe.shape(
+                "EE ",
+                "EB ",
+                "  B"
+            );
+            recipe.setIngredient('B', Material.BONE);
+            recipe.setIngredient('E', Material.EGG);
+        });
     }
 
     @EventHandler
