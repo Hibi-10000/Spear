@@ -9,6 +9,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Main extends JavaPlugin {
     public Main plugin;
     public Mech mech;
@@ -95,5 +99,21 @@ public class Main extends JavaPlugin {
             }
         }
         return false;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        if (!command.getName().equalsIgnoreCase("givespear")) return null;
+        if (args.length == 1) {
+            List<String> list = new ArrayList<>();
+            for (Player p : getServer().getOnlinePlayers()) {
+                list.add(p.getName());
+            }
+            return list;
+        }
+        if (args.length == 2) {
+            return Arrays.asList("regular_spear", "fire_spear", "explosive_spear", "zeus_spear", "teleport_spear", "mob_spear");
+        }
+        return null;
     }
 }
