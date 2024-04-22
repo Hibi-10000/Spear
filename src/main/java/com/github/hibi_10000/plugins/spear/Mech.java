@@ -13,8 +13,10 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.tags.ItemTagType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +44,7 @@ public class Mech implements Listener {
         ItemMeta im = stack.getItemMeta();
         im.setDisplayName(name);
         im.setLore(lore);
+        im.getCustomTagContainer().setCustomTag(new NamespacedKey(this.plugin, "spear_type"), ItemTagType.STRING, key);
         stack.setItemMeta(im);
         NamespacedKey namespacedKey = new NamespacedKey(this.plugin, key);
         ShapedRecipe recipe = new ShapedRecipe(namespacedKey, stack);
@@ -141,97 +144,43 @@ public class Mech implements Listener {
         });
     }
 
+    public void shotSpear(Player p, PlayerInventory inv, ItemStack is, String key) {
+        if (p.hasPermission("spear.use." + key)) {
+            int amount = is.getAmount();
+            if (amount >= 2) {
+                is.setAmount(amount - 1);
+            } else if (amount == 1) {
+                inv.clear(inv.getHeldItemSlot());
+            } else {
+                return;
+            }
+            Arrow arrow = p.launchProjectile(Arrow.class);
+            this.spearw.put(arrow, key);
+        } else {
+            p.sendMessage("You do not have sufficient permissions");
+        }
+    }
+
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
+        if (e.getAction() != Action.LEFT_CLICK_AIR) return;
         Player p = e.getPlayer();
-        if (e.getAction() == Action.LEFT_CLICK_AIR) {
-            if (p.getItemInHand().getItemMeta() != null) {
-                if (p.getItemInHand().getItemMeta().getDisplayName() == "Spear") {
-                    if (p.hasPermission("spear.use.spear")) {
-                        if (p.getItemInHand().getAmount() >= 2) {
-                            p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
-                            Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.regular_spear);
-                        } else if (p.getItemInHand().getAmount() == 1) {
-                            p.getInventory().clear(p.getInventory().getHeldItemSlot());
-                            Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.regular_spear);
-                        }
-                    } else {
-                        p.sendMessage("You do not have sufficient permissions");
-                    }
-                } else if (p.getItemInHand().getItemMeta().getDisplayName() == "Fire Spear") {
-                    if (p.hasPermission("spear.use.fire_spear")) {
-                        if (p.getItemInHand().getAmount() >= 2) {
-                            p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
-                            Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.fire_spear);
-                        } else if (p.getItemInHand().getAmount() == 1) {
-                            p.getInventory().clear(p.getInventory().getHeldItemSlot());
-                            Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.fire_spear);
-                        }
-                    } else {
-                        p.sendMessage("You do not have sufficient permissions");
-                    }
-                } else if (p.getItemInHand().getItemMeta().getDisplayName() == "Explosive Spear") {
-                    if (p.hasPermission("spear.use.explosive_spear")) {
-                        if (p.getItemInHand().getAmount() >= 2) {
-                            p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
-                            Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.explosive_spear);
-                        } else if (p.getItemInHand().getAmount() == 1) {
-                            p.getInventory().clear(p.getInventory().getHeldItemSlot());
-                            Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.explosive_spear);
-                        }
-                    } else {
-                        p.sendMessage("You do not have sufficient permissions");
-                    }
-                } else if (p.getItemInHand().getItemMeta().getDisplayName() == "Zeus Spear") {
-                    if (p.hasPermission("spear.use.zeus_spear")) {
-                        if (p.getItemInHand().getAmount() >= 2) {
-                            p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
-                            Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.zeus_spear);
-                        } else if (p.getItemInHand().getAmount() == 1) {
-                            p.getInventory().clear(p.getInventory().getHeldItemSlot());
-                            Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.zeus_spear);
-                        }
-                    } else {
-                        p.sendMessage("You do not have sufficient permissions");
-                    }
-                } else if (p.getItemInHand().getItemMeta().getDisplayName() == "Teleport Spear") {
-                    if (p.hasPermission("spear.use.teleport_spear")) {
-                        if (p.getItemInHand().getAmount() >= 2) {
-                            p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
-                            Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.teleport_spear);
-                        } else if (p.getItemInHand().getAmount() == 1) {
-                            p.getInventory().clear(p.getInventory().getHeldItemSlot());
-                            Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.teleport_spear);
-                        }
-                    } else {
-                        p.sendMessage("You do not have sufficient permissions");
-                    }
-                } else if (p.getItemInHand().getItemMeta().getDisplayName() == "Mob Spear") {
-                    if (p.hasPermission("spear.use.mob_spear")) {
-                        if (p.getItemInHand().getAmount() >= 2) {
-                            p.getInventory().getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
-                            Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.mob_spear);
-                        } else if (p.getItemInHand().getAmount() == 1) {
-                            p.getInventory().clear(p.getInventory().getHeldItemSlot());
-                            Arrow arrow = p.launchProjectile(Arrow.class);
-                            this.spearw.put(arrow, this.mob_spear);
-                        }
-                    } else {
-                        p.sendMessage("You do not have sufficient permissions");
-                    }
-                }
-            }
+        PlayerInventory inv = p.getInventory();
+        ItemStack is = p.getInventory().getItemInHand();
+        ItemMeta im = is.getItemMeta();
+        if (im == null) return;
+        NamespacedKey key = new NamespacedKey(this.plugin, "spear_type");
+        String tag = im.getCustomTagContainer().getCustomTag(key, ItemTagType.STRING);
+        if (tag == null) return;
+        switch (tag) {
+            case "regular_spear":
+            case "fire_spear":
+            case "explosive_spear":
+            case "zeus_spear":
+            case "teleport_spear":
+            case "mob_spear":
+                shotSpear(p, inv, is, tag);
+                break;
         }
     }
 

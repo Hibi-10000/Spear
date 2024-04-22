@@ -41,7 +41,7 @@ bukkit {
         register("spear.use.*") {
             default = BukkitPluginDescription.Permission.Default.TRUE
             children = listOf(
-                "spear.use.spear",
+                "spear.use.regular_spear",
                 "spear.use.fire_spear",
                 "spear.use.explosive_spear",
                 "spear.use.zeus_spear",
@@ -49,7 +49,7 @@ bukkit {
                 "spear.use.mob_spear"
             )
         }
-        register("spear.use.spear")
+        register("spear.use.regular_spear")
         register("spear.use.fire_spear")
         register("spear.use.explosive_spear")
         register("spear.use.zeus_spear")

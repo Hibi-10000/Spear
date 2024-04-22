@@ -34,7 +34,7 @@ public class Main extends JavaPlugin {
 
     public void giveSpear(CommandSender sender, Player receiver, String type, int amount) {
         switch (type) {
-            case "spear":
+            case "regular_spear":
                 giveSpear(receiver, mech.addRecipeRegularSpear(), Material.STICK, amount);
                 break;
             case "fire_spear":
@@ -70,7 +70,7 @@ public class Main extends JavaPlugin {
                 sender.sendMessage(ChatColor.RED + "Too few arguments!" + white + " Do this: /givespear (playername) {spearname} [quantity]");
             } else if (args.length == 1) {
                 if (args[0].equalsIgnoreCase("options")) {
-                    sender.sendMessage(ChatColor.GREEN + "Spear Types: " + white + "spear, fire_spear, explosive_spear, zeus_spear, teleport_spear, mob_spear.");
+                    sender.sendMessage(ChatColor.GREEN + "Spear Types: " + white + "regular_spear, fire_spear, explosive_spear, zeus_spear, teleport_spear, mob_spear.");
                 } else {
                     sender.sendMessage(ChatColor.RED + "Too few arguments!" + white + " Do this: /givespear (playername) {spearname} [quantity]");
                 }

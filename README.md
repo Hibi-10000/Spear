@@ -22,7 +22,7 @@ Bukkit Plugin for Bukkit 1.13.2~
 
 
 - spear.use.* : use all spears
-- spear.use.spear : use (regular) spear
+- spear.use.regular_spear : use (regular) spear
 - spear.use.fire_spear : use fire spear
 - spear.use.explosive_spear : use explosive spear
 - spear.use.zeus_spear : use zeus spear
