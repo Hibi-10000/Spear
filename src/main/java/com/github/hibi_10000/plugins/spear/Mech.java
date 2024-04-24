@@ -188,55 +188,49 @@ public class Mech implements Listener {
     public void onHit(final ProjectileHitEvent e) {
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
             if (e.getEntity() instanceof Arrow) {
-                if (Mech.this.spearw.containsKey(e.getEntity())) {
-                    if (Mech.this.spearw.containsValue(Mech.this.regular_spear)) {
-                        Mech.this.spearw.remove(e.getEntity());
+                if (this.spearw.containsKey(e.getEntity())) {
+                    if (this.spearw.containsValue(this.regular_spear)) {
+                        this.spearw.remove(e.getEntity());
                         e.getEntity().remove();
-                    } else if (Mech.this.spearw.containsValue(Mech.this.fire_spear)) {
+                    } else if (this.spearw.containsValue(this.fire_spear)) {
                         final Block block = e.getEntity().getLocation().getBlock();
                         block.setType(Material.FIRE);
-                        Bukkit.getScheduler().scheduleSyncDelayedTask(Mech.this.plugin, () -> {
+                        Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
                             if (block.getType() == Material.FIRE)
                                 block.setType(Material.AIR);
                         }, 200L);
-                        Mech.this.spearw.remove(e.getEntity());
+                        this.spearw.remove(e.getEntity());
                         e.getEntity().remove();
-                    } else if (Mech.this.spearw.containsValue(Mech.this.explosive_spear)) {
+                    } else if (this.spearw.containsValue(this.explosive_spear)) {
                         e.getEntity().getWorld().createExplosion(e.getEntity().getLocation(), 1.0F);
-                        Mech.this.spearw.remove(e.getEntity());
+                        this.spearw.remove(e.getEntity());
                         e.getEntity().remove();
-                    } else if (Mech.this.spearw.containsValue(Mech.this.zeus_spear)) {
+                    } else if (this.spearw.containsValue(this.zeus_spear)) {
                         e.getEntity().getWorld().strikeLightning(e.getEntity().getLocation());
-                        Mech.this.spearw.remove(e.getEntity());
+                        this.spearw.remove(e.getEntity());
                         e.getEntity().remove();
-                    } else if (Mech.this.spearw.containsValue(Mech.this.teleport_spear)) {
+                    } else if (this.spearw.containsValue(this.teleport_spear)) {
                         Player p = (Player) e.getEntity().getShooter();
                         Location loc = e.getEntity().getLocation();
-                        Mech.this.spearw.remove(e.getEntity());
+                        this.spearw.remove(e.getEntity());
                         e.getEntity().remove();
                         p.teleport(loc);
-                    } else if (Mech.this.spearw.containsValue(Mech.this.mob_spear)) {
+                    } else if (this.spearw.containsValue(this.mob_spear)) {
                         World world = e.getEntity().getWorld();
                         Location loc = e.getEntity().getLocation();
                         Random r = new Random();
                         int next = r.nextInt(5);
                         if (next == 1) {
                             world.spawnEntity(loc, EntityType.ZOMBIE);
-                            Mech.this.spearw.remove(e.getEntity());
-                            e.getEntity().remove();
                         } else if (next == 2) {
                             world.spawnEntity(loc, EntityType.CREEPER);
-                            Mech.this.spearw.remove(e.getEntity());
-                            e.getEntity().remove();
                         } else if (next == 3) {
                             world.spawnEntity(loc, EntityType.SKELETON);
-                            Mech.this.spearw.remove(e.getEntity());
-                            e.getEntity().remove();
                         } else {
                             world.spawnEntity(loc, EntityType.SPIDER);
-                            Mech.this.spearw.remove(e.getEntity());
-                            e.getEntity().remove();
                         }
+                        this.spearw.remove(e.getEntity());
+                        e.getEntity().remove();
                     }
                 }
             }
