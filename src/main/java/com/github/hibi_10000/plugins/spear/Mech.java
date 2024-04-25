@@ -144,8 +144,8 @@ public class Mech implements Listener {
         });
     }
 
-    public void shotSpear(Player p, PlayerInventory inv, ItemStack is, String key) {
-        if (p.hasPermission("spear.use." + key)) {
+    public void shotSpear(Player p, PlayerInventory inv, ItemStack is, SpearType type) {
+        if (p.hasPermission("spear.use." + type.getName())) {
             int amount = is.getAmount();
             if (amount >= 2) {
                 is.setAmount(amount - 1);
@@ -155,7 +155,7 @@ public class Mech implements Listener {
                 return;
             }
             Arrow arrow = p.launchProjectile(Arrow.class);
-            this.spearw.put(arrow, key);
+            this.spearw.put(arrow, type.getName());
         } else {
             p.sendMessage("You do not have sufficient permissions");
         }
@@ -171,15 +171,16 @@ public class Mech implements Listener {
         if (im == null) return;
         NamespacedKey key = new NamespacedKey(this.plugin, "spear_type");
         String tag = im.getCustomTagContainer().getCustomTag(key, ItemTagType.STRING);
-        if (tag == null) return;
-        switch (tag) {
-            case "regular_spear":
-            case "fire_spear":
-            case "explosive_spear":
-            case "zeus_spear":
-            case "teleport_spear":
-            case "mob_spear":
-                shotSpear(p, inv, is, tag);
+        SpearType type = SpearType.fromName(tag);
+        if (type == null) return;
+        switch (type) {
+            case REGULAR:
+            case FIRE:
+            case EXPLOSIVE:
+            case ZEUS:
+            case TELEPORT:
+            case MOB:
+                shotSpear(p, inv, is, type);
                 break;
         }
     }

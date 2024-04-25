@@ -32,4 +32,13 @@ public enum SpearType {
     public Material getMaterial() {
         return material;
     }
+
+    public static SpearType fromName(String name) {
+        for (SpearType type : values()) {
+            if (type.getName().equals(name)) {
+                return type;
+            }
+        }
+        return null;
+    }
 }
