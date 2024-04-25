@@ -24,16 +24,16 @@ import java.util.Random;
 import java.util.function.Consumer;
 
 public class Mech implements Listener {
-    public Main plugin;
+    public final Main plugin;
 
-    public HashMap<Entity, String> spearw = new HashMap<>();
+    public final HashMap<Entity, String> spearw = new HashMap<>();
 
-    public String regular_spear = "regular_spear";
-    public String fire_spear = "fire_spear";
-    public String explosive_spear = "explosive_spear";
-    public String zeus_spear = "zeus_spear";
-    public String teleport_spear = "teleport_spear";
-    public String mob_spear = "mob_spear";
+    public final String regular_spear = "regular_spear";
+    public final String fire_spear = "fire_spear";
+    public final String explosive_spear = "explosive_spear";
+    public final String zeus_spear = "zeus_spear";
+    public final String teleport_spear = "teleport_spear";
+    public final String mob_spear = "mob_spear";
 
     public Mech(Main plugin) {
         this.plugin = plugin;
@@ -189,11 +189,12 @@ public class Mech implements Listener {
     public void onHit(final ProjectileHitEvent e) {
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
             if (e.getEntity() instanceof Arrow) {
-                if (this.spearw.containsKey(e.getEntity())) {
-                    if (this.spearw.containsValue(this.regular_spear)) {
+                String value = this.spearw.get(e.getEntity());
+                if (value != null) {
+                    if (value.equals(this.regular_spear)) {
                         this.spearw.remove(e.getEntity());
                         e.getEntity().remove();
-                    } else if (this.spearw.containsValue(this.fire_spear)) {
+                    } else if (value.equals(this.fire_spear)) {
                         final Block block = e.getEntity().getLocation().getBlock();
                         block.setType(Material.FIRE);
                         Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
@@ -202,21 +203,21 @@ public class Mech implements Listener {
                         }, 200L);
                         this.spearw.remove(e.getEntity());
                         e.getEntity().remove();
-                    } else if (this.spearw.containsValue(this.explosive_spear)) {
+                    } else if (value.equals(this.explosive_spear)) {
                         e.getEntity().getWorld().createExplosion(e.getEntity().getLocation(), 1.0F);
                         this.spearw.remove(e.getEntity());
                         e.getEntity().remove();
-                    } else if (this.spearw.containsValue(this.zeus_spear)) {
+                    } else if (value.equals(this.zeus_spear)) {
                         e.getEntity().getWorld().strikeLightning(e.getEntity().getLocation());
                         this.spearw.remove(e.getEntity());
                         e.getEntity().remove();
-                    } else if (this.spearw.containsValue(this.teleport_spear)) {
+                    } else if (value.equals(this.teleport_spear)) {
                         Player p = (Player) e.getEntity().getShooter();
                         Location loc = e.getEntity().getLocation();
                         this.spearw.remove(e.getEntity());
                         e.getEntity().remove();
                         p.teleport(loc);
-                    } else if (this.spearw.containsValue(this.mob_spear)) {
+                    } else if (value.equals(this.mob_spear)) {
                         World world = e.getEntity().getWorld();
                         Location loc = e.getEntity().getLocation();
                         Random r = new Random();
@@ -241,24 +242,25 @@ public class Mech implements Listener {
     @EventHandler
     public void onHit2(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof Arrow) {
-            if (this.spearw.containsKey(e.getDamager())) {
-                if (this.spearw.containsValue(this.regular_spear)) {
+            String value = this.spearw.get(e.getDamager());
+            if (value != null) {
+                if (value.equals(this.regular_spear)) {
                     e.setDamage(15);
                     this.spearw.remove(e.getDamager());
-                } else if (this.spearw.containsValue(this.fire_spear)) {
+                } else if (value.equals(this.fire_spear)) {
                     e.getEntity().setFireTicks(200);
                     e.setDamage(15);
                     this.spearw.remove(e.getDamager());
-                } else if (this.spearw.containsValue(this.explosive_spear)) {
+                } else if (value.equals(this.explosive_spear)) {
                     e.setDamage(15);
                     e.getDamager().getWorld().createExplosion(e.getEntity().getLocation(), 2.0F);
                     this.spearw.remove(e.getDamager());
-                } else if (this.spearw.containsValue(this.zeus_spear)) {
+                } else if (value.equals(this.zeus_spear)) {
                     e.setDamage(30);
                     e.getDamager().getWorld().strikeLightning(e.getDamager().getLocation());
                     e.getDamager().getWorld().createExplosion(e.getDamager().getLocation(), 3.0F);
                     this.spearw.remove(e.getDamager());
-                } else if (this.spearw.containsValue(this.teleport_spear)) {
+                } else if (value.equals(this.teleport_spear)) {
                     Player p1 = (Player) ((Arrow) e.getDamager()).getShooter();
                     Entity p2 = e.getEntity();
                     Location p2loc = p2.getLocation();
@@ -275,7 +277,7 @@ public class Mech implements Listener {
                             p2.teleport(p1loc);
                             this.spearw.remove(e.getDamager());
                         }
-                } else if (this.spearw.containsValue(this.mob_spear)) {
+                } else if (value.equals(this.mob_spear)) {
                     if (e.getEntity() instanceof Player) {
                         e.setDamage(20);
                         Player p = (Player) e.getEntity();
