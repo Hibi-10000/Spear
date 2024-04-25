@@ -39,14 +39,14 @@ public class Mech implements Listener {
         this.plugin = plugin;
     }
 
-    public ItemMeta addRecipeSpear(Material type, String name, ArrayList<String> lore, String key, Consumer<ShapedRecipe> recipeConsumer) {
-        ItemStack stack = new ItemStack(type, 1);
+    public ItemMeta addRecipeSpear(SpearType spear, ArrayList<String> lore, Consumer<ShapedRecipe> recipeConsumer) {
+        ItemStack stack = new ItemStack(spear.getMaterial(), 1);
         ItemMeta im = stack.getItemMeta();
-        im.setDisplayName(name);
+        im.setDisplayName(spear.getDisplayName());
         im.setLore(lore);
-        im.getCustomTagContainer().setCustomTag(new NamespacedKey(this.plugin, "spear_type"), ItemTagType.STRING, key);
+        im.getCustomTagContainer().setCustomTag(new NamespacedKey(this.plugin, "spear_type"), ItemTagType.STRING, spear.getName());
         stack.setItemMeta(im);
-        NamespacedKey namespacedKey = new NamespacedKey(this.plugin, key);
+        NamespacedKey namespacedKey = new NamespacedKey(this.plugin, spear.getName());
         ShapedRecipe recipe = new ShapedRecipe(namespacedKey, stack);
         recipeConsumer.accept(recipe);
         this.plugin.getServer().addRecipe(recipe);
@@ -57,7 +57,7 @@ public class Mech implements Listener {
         ArrayList<String> lore = new ArrayList<>();
         lore.add(ChatColor.BLUE + " Simple, but deadly.");
         lore.add(ChatColor.RED + " Damage: 15");
-        return addRecipeSpear(Material.STICK, "Spear", lore, this.regular_spear, recipe -> {
+        return addRecipeSpear(SpearType.REGULAR, lore, recipe -> {
             recipe.shape(
                 "F  ",
                 " S ",
@@ -72,7 +72,7 @@ public class Mech implements Listener {
         ArrayList<String> lore = new ArrayList<>();
         lore.add(ChatColor.BLUE + " Set your enemy on fire!");
         lore.add(ChatColor.RED + " Damage: 15 + fire damage");
-        return addRecipeSpear(Material.BLAZE_ROD, "Fire Spear", lore, this.fire_spear, recipe -> {
+        return addRecipeSpear(SpearType.FIRE, lore, recipe -> {
             recipe.shape(
                 "P  ",
                 " B ",
@@ -87,7 +87,7 @@ public class Mech implements Listener {
         ArrayList<String> lore = new ArrayList<>();
         lore.add(ChatColor.BLUE + " Create a deadly explosion!");
         lore.add(ChatColor.RED + " Damage: 15 + explosion damage");
-        return addRecipeSpear(Material.STICK, "Explosive Spear", lore, this.explosive_spear, recipe -> {
+        return addRecipeSpear(SpearType.EXPLOSIVE, lore, recipe -> {
             recipe.shape(
                 "U  ",
                 " S ",
@@ -102,7 +102,7 @@ public class Mech implements Listener {
         ArrayList<String> lore = new ArrayList<>();
         lore.add(ChatColor.BLUE + " Harness the power of the skies!");
         lore.add(ChatColor.RED + " Damage: 30 + explosion damage");
-        return addRecipeSpear(Material.BLAZE_ROD, "Zeus Spear", lore, this.zeus_spear, recipe -> {
+        return addRecipeSpear(SpearType.ZEUS, lore, recipe -> {
             recipe.shape(
                 "DD ",
                 "DB ",
@@ -117,7 +117,7 @@ public class Mech implements Listener {
         ArrayList<String> lore = new ArrayList<>();
         lore.add(ChatColor.BLUE + " Teleport yourself or others!");
         lore.add(ChatColor.RED + " Damage: 10");
-        return addRecipeSpear(Material.STICK, "Teleport Spear", lore, this.teleport_spear, recipe -> {
+        return addRecipeSpear(SpearType.TELEPORT, lore, recipe -> {
             recipe.shape(
                 "YE ",
                 "ES ",
@@ -133,7 +133,7 @@ public class Mech implements Listener {
         ArrayList<String> lore = new ArrayList<>();
         lore.add(ChatColor.BLUE + " Welcome to the dark side.");
         lore.add(ChatColor.RED + " Damage: 20");
-        return addRecipeSpear(Material.BONE, "Mob Spear", lore, this.mob_spear, recipe -> {
+        return addRecipeSpear(SpearType.MOB, lore, recipe -> {
             recipe.shape(
                 "EE ",
                 "EB ",
