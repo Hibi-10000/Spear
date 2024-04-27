@@ -165,17 +165,7 @@ public class Mech implements Listener {
         NamespacedKey key = new NamespacedKey(this.plugin, "spear_type");
         String tag = im.getCustomTagContainer().getCustomTag(key, ItemTagType.STRING);
         SpearType type = SpearType.fromName(tag);
-        if (type == null) return;
-        switch (type) {
-            case REGULAR:
-            case FIRE:
-            case EXPLOSIVE:
-            case ZEUS:
-            case TELEPORT:
-            case MOB:
-                shotSpear(p, inv, is, type);
-                break;
-        }
+        if (type != null) shotSpear(p, inv, is, type);
     }
 
     @EventHandler

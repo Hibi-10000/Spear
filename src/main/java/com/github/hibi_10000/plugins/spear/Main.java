@@ -10,7 +10,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main extends JavaPlugin {
@@ -37,27 +36,30 @@ public class Main extends JavaPlugin {
     }
 
     public void giveSpear(CommandSender sender, Player receiver, String type, int amount) {
-        switch (type) {
-            case "regular_spear":
-                giveSpear(receiver, mech.addRecipeRegularSpear(), Material.STICK, amount);
+        SpearType spearType = SpearType.fromNameIgnoreCase(type);
+        if (spearType == null) {
+            sender.sendMessage(ChatColor.RED + type + ChatColor.WHITE + " is not a correct spear type!");
+            return;
+        }
+        switch (spearType) {
+            case REGULAR:
+                giveSpear(receiver, mech.addRecipeRegularSpear(), spearType.getMaterial(), amount);
                 break;
-            case "fire_spear":
-                giveSpear(receiver, mech.addRecipeFireSpear(), Material.BLAZE_ROD, amount);
+            case FIRE:
+                giveSpear(receiver, mech.addRecipeFireSpear(), spearType.getMaterial(), amount);
                 break;
-            case "explosive_spear":
-                giveSpear(receiver, mech.addRecipeExplosiveSpear(), Material.STICK, amount);
+            case EXPLOSIVE:
+                giveSpear(receiver, mech.addRecipeExplosiveSpear(), spearType.getMaterial(), amount);
                 break;
-            case "zeus_spear":
-                giveSpear(receiver, mech.addRecipeZeusSpear(), Material.BLAZE_ROD, amount);
+            case ZEUS:
+                giveSpear(receiver, mech.addRecipeZeusSpear(), spearType.getMaterial(), amount);
                 break;
-            case "teleport_spear":
-                giveSpear(receiver, mech.addRecipeTeleportSpear(), Material.STICK, amount);
+            case TELEPORT:
+                giveSpear(receiver, mech.addRecipeTeleportSpear(), spearType.getMaterial(), amount);
                 break;
-            case "mob_spear":
-                giveSpear(receiver, mech.addRecipeMobSpear(), Material.BONE, amount);
+            case MOB:
+                giveSpear(receiver, mech.addRecipeMobSpear(), spearType.getMaterial(), amount);
                 break;
-            default:
-                sender.sendMessage(ChatColor.RED + type + ChatColor.WHITE + " is not a correct spear type!");
         }
     }
 
@@ -74,7 +76,7 @@ public class Main extends JavaPlugin {
                 sender.sendMessage(ChatColor.RED + "Too few arguments!" + white + " Do this: /givespear (playername) {spearname} [quantity]");
             } else if (args.length == 1) {
                 if (args[0].equalsIgnoreCase("options")) {
-                    sender.sendMessage(ChatColor.GREEN + "Spear Types: " + white + "regular_spear, fire_spear, explosive_spear, zeus_spear, teleport_spear, mob_spear.");
+                    sender.sendMessage(ChatColor.GREEN + "Spear Types: " + white + String.join(", ", SpearType.names()) + ".");
                 } else {
                     sender.sendMessage(ChatColor.RED + "Too few arguments!" + white + " Do this: /givespear (playername) {spearname} [quantity]");
                 }
@@ -112,7 +114,7 @@ public class Main extends JavaPlugin {
             return list;
         }
         if (args.length == 2) {
-            return Arrays.asList("regular_spear", "fire_spear", "explosive_spear", "zeus_spear", "teleport_spear", "mob_spear");
+            return SpearType.names();
         }
         return null;
     }

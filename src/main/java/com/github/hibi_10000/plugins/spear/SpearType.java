@@ -2,6 +2,9 @@ package com.github.hibi_10000.plugins.spear;
 
 import org.bukkit.Material;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum SpearType {
     REGULAR  (  "regular_spear",           "Spear", Material.STICK    ),
     FIRE     (     "fire_spear",      "Fire Spear", Material.BLAZE_ROD),
@@ -40,5 +43,22 @@ public enum SpearType {
             }
         }
         return null;
+    }
+
+    public static SpearType fromNameIgnoreCase(String name) {
+        for (SpearType type : values()) {
+            if (type.getName().equalsIgnoreCase(name)) {
+                return type;
+            }
+        }
+        return null;
+    }
+
+    public static List<String> names() {
+        List<String> list = new ArrayList<>();
+        for (SpearType type : values()) {
+            list.add(type.getName());
+        }
+        return list;
     }
 }
