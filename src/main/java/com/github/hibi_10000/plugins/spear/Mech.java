@@ -14,14 +14,11 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.tags.ItemTagType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.function.Consumer;
 
 public class Mech implements Listener {
     public final Main plugin;
@@ -30,111 +27,6 @@ public class Mech implements Listener {
 
     public Mech(Main plugin) {
         this.plugin = plugin;
-    }
-
-    public ItemMeta addRecipeSpear(SpearType spear, ArrayList<String> lore, Consumer<ShapedRecipe> recipeConsumer) {
-        ItemStack stack = new ItemStack(spear.getMaterial(), 1);
-        ItemMeta im = stack.getItemMeta();
-        im.setDisplayName(spear.getDisplayName());
-        im.setLore(lore);
-        im.getCustomTagContainer().setCustomTag(new NamespacedKey(this.plugin, "spear_type"), ItemTagType.STRING, spear.getName());
-        stack.setItemMeta(im);
-        NamespacedKey namespacedKey = new NamespacedKey(this.plugin, spear.getName());
-        ShapedRecipe recipe = new ShapedRecipe(namespacedKey, stack);
-        recipeConsumer.accept(recipe);
-        this.plugin.getServer().addRecipe(recipe);
-        return im;
-    }
-
-    public ItemMeta addRecipeRegularSpear() {
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.BLUE + " Simple, but deadly.");
-        lore.add(ChatColor.RED + " Damage: 15");
-        return addRecipeSpear(SpearType.REGULAR, lore, recipe -> {
-            recipe.shape(
-                "F  ",
-                " S ",
-                "  S"
-            );
-            recipe.setIngredient('S', Material.STICK);
-            recipe.setIngredient('F', Material.FLINT);
-        });
-    }
-
-    public ItemMeta addRecipeFireSpear() {
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.BLUE + " Set your enemy on fire!");
-        lore.add(ChatColor.RED + " Damage: 15 + fire damage");
-        return addRecipeSpear(SpearType.FIRE, lore, recipe -> {
-            recipe.shape(
-                "P  ",
-                " B ",
-                "  B"
-            );
-            recipe.setIngredient('B', Material.BLAZE_ROD);
-            recipe.setIngredient('P', Material.BLAZE_POWDER);
-        });
-    }
-
-    public ItemMeta addRecipeExplosiveSpear() {
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.BLUE + " Create a deadly explosion!");
-        lore.add(ChatColor.RED + " Damage: 15 + explosion damage");
-        return addRecipeSpear(SpearType.EXPLOSIVE, lore, recipe -> {
-            recipe.shape(
-                "U  ",
-                " S ",
-                "  S"
-            );
-            recipe.setIngredient('S', Material.STICK);
-            recipe.setIngredient('U', Material.GUNPOWDER);
-        });
-    }
-
-    public ItemMeta addRecipeZeusSpear() {
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.BLUE + " Harness the power of the skies!");
-        lore.add(ChatColor.RED + " Damage: 30 + explosion damage");
-        return addRecipeSpear(SpearType.ZEUS, lore, recipe -> {
-            recipe.shape(
-                "DD ",
-                "DB ",
-                "  B"
-            );
-            recipe.setIngredient('B', Material.BLAZE_ROD);
-            recipe.setIngredient('D', Material.DIAMOND);
-        });
-    }
-
-    public ItemMeta addRecipeTeleportSpear() {
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.BLUE + " Teleport yourself or others!");
-        lore.add(ChatColor.RED + " Damage: 10");
-        return addRecipeSpear(SpearType.TELEPORT, lore, recipe -> {
-            recipe.shape(
-                "YE ",
-                "ES ",
-                "  S"
-            );
-            recipe.setIngredient('S', Material.STICK);
-            recipe.setIngredient('E', Material.ENDER_PEARL);
-            recipe.setIngredient('Y', Material.ENDER_EYE);
-        });
-    }
-
-    public ItemMeta addRecipeMobSpear() {
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.BLUE + " Welcome to the dark side.");
-        lore.add(ChatColor.RED + " Damage: 20");
-        return addRecipeSpear(SpearType.MOB, lore, recipe -> {
-            recipe.shape(
-                "EE ",
-                "EB ",
-                "  B"
-            );
-            recipe.setIngredient('B', Material.BONE);
-            recipe.setIngredient('E', Material.EGG);
-        });
     }
 
     public void shotSpear(Player p, PlayerInventory inv, ItemStack is, SpearType type) {

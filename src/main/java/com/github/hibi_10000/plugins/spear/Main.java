@@ -1,12 +1,10 @@
 package com.github.hibi_10000.plugins.spear;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -20,18 +18,16 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         this.plugin = this;
         mech = new Mech(this.plugin);
+        SpearType.init(this.plugin);
         getServer().getPluginManager().registerEvents(mech, this);
-        mech.addRecipeRegularSpear();
-        mech.addRecipeFireSpear();
-        mech.addRecipeExplosiveSpear();
-        mech.addRecipeZeusSpear();
-        mech.addRecipeTeleportSpear();
-        mech.addRecipeMobSpear();
+        for (SpearType type : SpearType.values()) {
+            type.getSpear().addRecipe();
+        }
     }
 
-    public void giveSpear(Player receiver, ItemMeta data, Material type, int amount) {
-        ItemStack is = new ItemStack(type, amount);
-        is.setItemMeta(data);
+    public void giveSpear(Player receiver, SpearType type, int amount) {
+        ItemStack is = new ItemStack(type.getMaterial(), amount);
+        is.setItemMeta(type.getSpear().addRecipe());
         receiver.getInventory().addItem(is);
     }
 
@@ -39,27 +35,8 @@ public class Main extends JavaPlugin {
         SpearType spearType = SpearType.fromNameIgnoreCase(type);
         if (spearType == null) {
             sender.sendMessage(ChatColor.RED + type + ChatColor.WHITE + " is not a correct spear type!");
-            return;
-        }
-        switch (spearType) {
-            case REGULAR:
-                giveSpear(receiver, mech.addRecipeRegularSpear(), spearType.getMaterial(), amount);
-                break;
-            case FIRE:
-                giveSpear(receiver, mech.addRecipeFireSpear(), spearType.getMaterial(), amount);
-                break;
-            case EXPLOSIVE:
-                giveSpear(receiver, mech.addRecipeExplosiveSpear(), spearType.getMaterial(), amount);
-                break;
-            case ZEUS:
-                giveSpear(receiver, mech.addRecipeZeusSpear(), spearType.getMaterial(), amount);
-                break;
-            case TELEPORT:
-                giveSpear(receiver, mech.addRecipeTeleportSpear(), spearType.getMaterial(), amount);
-                break;
-            case MOB:
-                giveSpear(receiver, mech.addRecipeMobSpear(), spearType.getMaterial(), amount);
-                break;
+        } else {
+            giveSpear(receiver, spearType, amount);
         }
     }
 
