@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Main extends JavaPlugin {
@@ -25,18 +26,14 @@ public class Main extends JavaPlugin {
         }
     }
 
-    public void giveSpear(Player receiver, SpearType type, int amount) {
-        ItemStack is = new ItemStack(type.getMaterial(), amount);
-        is.setItemMeta(type.getSpear().addRecipe());
-        receiver.getInventory().addItem(is);
-    }
-
     public void giveSpear(CommandSender sender, Player receiver, String type, int amount) {
         SpearType spearType = SpearType.fromNameIgnoreCase(type);
-        if (spearType == null) {
-            sender.sendMessage(ChatColor.RED + type + ChatColor.WHITE + " is not a correct spear type!");
+        if (spearType != null) {
+            ItemStack is = new ItemStack(spearType.getMaterial(), amount);
+            is.setItemMeta(spearType.getSpear().addRecipe());
+            receiver.getInventory().addItem(is);
         } else {
-            giveSpear(receiver, spearType, amount);
+            sender.sendMessage(ChatColor.RED + type + ChatColor.WHITE + " is not a correct spear type!");
         }
     }
 
@@ -82,17 +79,16 @@ public class Main extends JavaPlugin {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (!command.getName().equalsIgnoreCase("givespear")) return null;
+        if (!command.getName().equalsIgnoreCase("givespear")) return Collections.emptyList();
         if (args.length == 1) {
             List<String> list = new ArrayList<>();
             for (Player p : getServer().getOnlinePlayers()) {
                 list.add(p.getName());
             }
             return list;
-        }
-        if (args.length == 2) {
+        } else if (args.length == 2) {
             return SpearType.names();
         }
-        return null;
+        return Collections.emptyList();
     }
 }
