@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Main extends JavaPlugin {
     private final Main plugin = this;
-    private final Mech mech = new Mech(plugin);
+    public final Mech mech = new Mech(plugin);
 
     @Override
     public void onEnable() {

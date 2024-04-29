@@ -1,7 +1,8 @@
 package com.github.hibi_10000.plugins.spear;
 
-import org.bukkit.*;
-import org.bukkit.block.Block;
+import org.bukkit.Effect;
+import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -18,7 +19,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.tags.ItemTagType;
 
 import java.util.HashMap;
-import java.util.Random;
 
 public class Mech implements Listener {
     private final Main plugin;
@@ -60,55 +60,11 @@ public class Mech implements Listener {
     }
 
     @EventHandler
-    public void onHit(final ProjectileHitEvent e) {
-        Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
+    public void onHit(ProjectileHitEvent e) {
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             if (e.getEntity() instanceof Arrow) {
                 SpearType type = this.spearw.get(e.getEntity());
-                if (type != null) {
-                    if (type == SpearType.REGULAR) {
-                        this.spearw.remove(e.getEntity());
-                        e.getEntity().remove();
-                    } else if (type == SpearType.FIRE) {
-                        final Block block = e.getEntity().getLocation().getBlock();
-                        block.setType(Material.FIRE);
-                        Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
-                            if (block.getType() == Material.FIRE)
-                                block.setType(Material.AIR);
-                        }, 200L);
-                        this.spearw.remove(e.getEntity());
-                        e.getEntity().remove();
-                    } else if (type == SpearType.EXPLOSIVE) {
-                        e.getEntity().getWorld().createExplosion(e.getEntity().getLocation(), 1.0F);
-                        this.spearw.remove(e.getEntity());
-                        e.getEntity().remove();
-                    } else if (type == SpearType.ZEUS) {
-                        e.getEntity().getWorld().strikeLightning(e.getEntity().getLocation());
-                        this.spearw.remove(e.getEntity());
-                        e.getEntity().remove();
-                    } else if (type == SpearType.TELEPORT) {
-                        Player p = (Player) e.getEntity().getShooter();
-                        Location loc = e.getEntity().getLocation();
-                        this.spearw.remove(e.getEntity());
-                        e.getEntity().remove();
-                        p.teleport(loc);
-                    } else if (type == SpearType.MOB) {
-                        World world = e.getEntity().getWorld();
-                        Location loc = e.getEntity().getLocation();
-                        Random r = new Random();
-                        int next = r.nextInt(5);
-                        if (next == 1) {
-                            world.spawnEntity(loc, EntityType.ZOMBIE);
-                        } else if (next == 2) {
-                            world.spawnEntity(loc, EntityType.CREEPER);
-                        } else if (next == 3) {
-                            world.spawnEntity(loc, EntityType.SKELETON);
-                        } else {
-                            world.spawnEntity(loc, EntityType.SPIDER);
-                        }
-                        this.spearw.remove(e.getEntity());
-                        e.getEntity().remove();
-                    }
-                }
+                if (type != null) type.getSpear().onHit(e);
             }
         }, 1L);
     }

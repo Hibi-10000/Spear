@@ -3,10 +3,15 @@ package com.github.hibi_10000.plugins.spear.type;
 import com.github.hibi_10000.plugins.spear.Main;
 import com.github.hibi_10000.plugins.spear.SpearType;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.entity.EntityType;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Mob extends Spear {
     public Mob(Main instance) {
@@ -27,5 +32,23 @@ public class Mob extends Spear {
             recipe.setIngredient('B', Material.BONE);
             recipe.setIngredient('E', Material.EGG);
         });
+    }
+
+    @Override
+    public void onHit(ProjectileHitEvent e) {
+        World world = e.getEntity().getWorld();
+        Location loc = e.getEntity().getLocation();
+        Random r = new Random();
+        int next = r.nextInt(5);
+        if (next == 1) {
+            world.spawnEntity(loc, EntityType.ZOMBIE);
+        } else if (next == 2) {
+            world.spawnEntity(loc, EntityType.CREEPER);
+        } else if (next == 3) {
+            world.spawnEntity(loc, EntityType.SKELETON);
+        } else {
+            world.spawnEntity(loc, EntityType.SPIDER);
+        }
+        super.onHit(e);
     }
 }
