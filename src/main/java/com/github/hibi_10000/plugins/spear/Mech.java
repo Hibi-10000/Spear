@@ -21,12 +21,11 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Mech implements Listener {
-    public final Main plugin;
-
+    private final Main plugin;
     public final HashMap<Entity, SpearType> spearw = new HashMap<>();
 
-    public Mech(Main plugin) {
-        this.plugin = plugin;
+    public Mech(Main instance) {
+        this.plugin = instance;
     }
 
     public void shotSpear(Player p, PlayerInventory inv, ItemStack is, SpearType type) {

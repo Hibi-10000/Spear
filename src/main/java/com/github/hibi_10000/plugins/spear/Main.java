@@ -12,15 +12,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class Main extends JavaPlugin {
-    public Main plugin;
-    public Mech mech;
+    private final Main plugin = this;
+    private final Mech mech = new Mech(plugin);
 
     @Override
     public void onEnable() {
-        this.plugin = this;
-        mech = new Mech(this.plugin);
-        SpearType.init(this.plugin);
-        getServer().getPluginManager().registerEvents(mech, this);
+        SpearType.init(plugin);
+        plugin.getServer().getPluginManager().registerEvents(mech, plugin);
         for (SpearType type : SpearType.values()) {
             type.getSpear().addRecipe();
         }
@@ -85,7 +83,7 @@ public class Main extends JavaPlugin {
         if (!command.getName().equalsIgnoreCase("givespear")) return Collections.emptyList();
         if (args.length == 1) {
             List<String> list = new ArrayList<>();
-            for (Player p : getServer().getOnlinePlayers()) {
+            for (Player p : plugin.getServer().getOnlinePlayers()) {
                 list.add(p.getName());
             }
             return list;
