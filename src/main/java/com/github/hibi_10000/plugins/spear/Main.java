@@ -63,13 +63,16 @@ public class Main extends JavaPlugin {
                 }
             } else if (args.length == 3) {
                 Player tp = plugin.getServer().getPlayer(args[0]);
-                if (tp != null)
+                if (tp != null) {
                     try {
                         int arg3 = Integer.parseInt(args[2]);
                         giveSpear(sender, tp, args[1], arg3);
                     } catch (NumberFormatException ex) {
                         sender.sendMessage(ChatColor.RED + args[2] + white + " should be an int!");
                     }
+                } else {
+                    sender.sendMessage("Player not found!");
+                }
             } else {
                 sender.sendMessage(ChatColor.RED + "Too many arguments!" + white + " Do this: /givespear (playername) {spearname} [quantity]");
             }
