@@ -4,6 +4,7 @@ import com.github.hibi_10000.plugins.spear.Main;
 import com.github.hibi_10000.plugins.spear.SpearType;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
@@ -27,5 +28,11 @@ public class Regular extends Spear {
             recipe.setIngredient('S', Material.STICK);
             recipe.setIngredient('F', Material.FLINT);
         });
+    }
+
+    @Override
+    public void onHit(EntityDamageByEntityEvent e) {
+        e.setDamage(15);
+        super.onHit(e);
     }
 }

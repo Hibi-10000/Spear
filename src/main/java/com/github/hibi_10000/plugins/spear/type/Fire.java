@@ -5,6 +5,7 @@ import com.github.hibi_10000.plugins.spear.SpearType;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -39,6 +40,13 @@ public class Fire extends Spear {
             if (block.getType() == Material.FIRE)
                 block.setType(Material.AIR);
         }, 200L);
+        super.onHit(e);
+    }
+
+    @Override
+    public void onHit(EntityDamageByEntityEvent e) {
+        e.getEntity().setFireTicks(200);
+        e.setDamage(15);
         super.onHit(e);
     }
 }

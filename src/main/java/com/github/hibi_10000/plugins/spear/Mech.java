@@ -1,11 +1,8 @@
 package com.github.hibi_10000.plugins.spear;
 
-import org.bukkit.Effect;
-import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -73,52 +70,7 @@ public class Mech implements Listener {
     public void onHit2(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof Arrow) {
             SpearType type = this.spearw.get(e.getDamager());
-            if (type != null) {
-                if (type == SpearType.REGULAR) {
-                    e.setDamage(15);
-                    this.spearw.remove(e.getDamager());
-                } else if (type == SpearType.FIRE) {
-                    e.getEntity().setFireTicks(200);
-                    e.setDamage(15);
-                    this.spearw.remove(e.getDamager());
-                } else if (type == SpearType.EXPLOSIVE) {
-                    e.setDamage(15);
-                    e.getDamager().getWorld().createExplosion(e.getEntity().getLocation(), 2.0F);
-                    this.spearw.remove(e.getDamager());
-                } else if (type == SpearType.ZEUS) {
-                    e.setDamage(30);
-                    e.getDamager().getWorld().strikeLightning(e.getDamager().getLocation());
-                    e.getDamager().getWorld().createExplosion(e.getDamager().getLocation(), 3.0F);
-                    this.spearw.remove(e.getDamager());
-                } else if (type == SpearType.TELEPORT) {
-                    Player p1 = (Player) ((Arrow) e.getDamager()).getShooter();
-                    Entity p2 = e.getEntity();
-                    Location p2loc = p2.getLocation();
-                    Location p1loc = p1.getLocation();
-                    if (p2 instanceof Player)
-                        if (p1 == p2) {
-                            p1.sendMessage("Teleportation failure!");
-                            e.setDamage(5);
-                        } else {
-                            e.setDamage(10);
-                            p1.getWorld().playEffect(p1loc, Effect.SMOKE, 10);
-                            p2.getWorld().playEffect(p2loc, Effect.SMOKE, 10);
-                            p1.teleport(p2loc);
-                            p2.teleport(p1loc);
-                            this.spearw.remove(e.getDamager());
-                        }
-                } else if (type == SpearType.MOB) {
-                    if (e.getEntity() instanceof Player) {
-                        e.setDamage(20);
-                        Player p = (Player) e.getEntity();
-                        if (p.getHealth() <= 5) {
-                            p.setHealth(0);
-                            e.getEntity().getWorld().spawnEntity(e.getEntity().getLocation(), EntityType.ZOMBIE);
-                            this.spearw.remove(e.getDamager());
-                        }
-                    }
-                }
-            }
+            if (type != null) type.getSpear().onHit(e);
         }
     }
 }

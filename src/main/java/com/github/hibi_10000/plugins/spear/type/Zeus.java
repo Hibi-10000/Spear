@@ -4,6 +4,7 @@ import com.github.hibi_10000.plugins.spear.Main;
 import com.github.hibi_10000.plugins.spear.SpearType;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -33,6 +34,14 @@ public class Zeus extends Spear {
     @Override
     public void onHit(ProjectileHitEvent e) {
         e.getEntity().getWorld().strikeLightning(e.getEntity().getLocation());
+        super.onHit(e);
+    }
+
+    @Override
+    public void onHit(EntityDamageByEntityEvent e) {
+        e.setDamage(30);
+        e.getDamager().getWorld().strikeLightning(e.getDamager().getLocation());
+        e.getDamager().getWorld().createExplosion(e.getDamager().getLocation(), 3.0F);
         super.onHit(e);
     }
 }

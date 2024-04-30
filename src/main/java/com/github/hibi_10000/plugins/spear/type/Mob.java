@@ -7,6 +7,8 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -50,5 +52,18 @@ public class Mob extends Spear {
             world.spawnEntity(loc, EntityType.SPIDER);
         }
         super.onHit(e);
+    }
+
+    @Override
+    public void onHit(EntityDamageByEntityEvent e) {
+        if (e.getEntity() instanceof Player) {
+            e.setDamage(20);
+            Player p = (Player) e.getEntity();
+            if (p.getHealth() <= 5) {
+                p.setHealth(0);
+                e.getEntity().getWorld().spawnEntity(e.getEntity().getLocation(), EntityType.ZOMBIE);
+                super.onHit(e);
+            }
+        }
     }
 }

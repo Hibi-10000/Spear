@@ -3,6 +3,7 @@ package com.github.hibi_10000.plugins.spear.type;
 import com.github.hibi_10000.plugins.spear.Main;
 import com.github.hibi_10000.plugins.spear.SpearType;
 import org.bukkit.NamespacedKey;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
@@ -37,5 +38,9 @@ public abstract class Spear {
     public void onHit(ProjectileHitEvent e) {
         plugin.mech.spearw.remove(e.getEntity());
         e.getEntity().remove();
+    }
+
+    public void onHit(EntityDamageByEntityEvent e) {
+        plugin.mech.spearw.remove(e.getDamager());
     }
 }
