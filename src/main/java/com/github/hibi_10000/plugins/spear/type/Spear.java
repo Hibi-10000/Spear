@@ -19,7 +19,7 @@ public abstract class Spear {
         this.plugin = instance;
     }
 
-    protected ItemMeta addRecipe(SpearType spear, ArrayList<String> lore, Consumer<ShapedRecipe> recipeConsumer) {
+    protected final ItemMeta addRecipe(SpearType spear, ArrayList<String> lore, Consumer<ShapedRecipe> recipeConsumer) {
         ItemStack stack = new ItemStack(spear.getMaterial(), 1);
         ItemMeta im = stack.getItemMeta();
         im.setDisplayName(spear.getDisplayName());

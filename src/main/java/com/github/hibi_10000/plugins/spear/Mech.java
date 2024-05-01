@@ -18,6 +18,7 @@ import org.bukkit.inventory.meta.tags.ItemTagType;
 import java.util.HashMap;
 
 public class Mech implements Listener {
+    private final Mech mech = this;
     private final Main plugin;
     public final HashMap<Entity, SpearType> spearw = new HashMap<>();
 
@@ -36,7 +37,7 @@ public class Mech implements Listener {
                 return;
             }
             Arrow arrow = p.launchProjectile(Arrow.class);
-            this.spearw.put(arrow, type);
+            mech.spearw.put(arrow, type);
         } else {
             p.sendMessage("You do not have sufficient permissions");
         }
@@ -47,10 +48,10 @@ public class Mech implements Listener {
         if (e.getAction() != Action.LEFT_CLICK_AIR) return;
         Player p = e.getPlayer();
         PlayerInventory inv = p.getInventory();
-        ItemStack is = p.getInventory().getItemInHand();
+        ItemStack is = inv.getItemInHand();
         ItemMeta im = is.getItemMeta();
         if (im == null) return;
-        NamespacedKey key = new NamespacedKey(this.plugin, "spear_type");
+        NamespacedKey key = new NamespacedKey(plugin, "spear_type");
         String tag = im.getCustomTagContainer().getCustomTag(key, ItemTagType.STRING);
         SpearType type = SpearType.fromName(tag);
         if (type != null) shotSpear(p, inv, is, type);
@@ -60,7 +61,7 @@ public class Mech implements Listener {
     public void onHit(ProjectileHitEvent e) {
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             if (e.getEntity() instanceof Arrow) {
-                SpearType type = this.spearw.get(e.getEntity());
+                SpearType type = mech.spearw.get(e.getEntity());
                 if (type != null) type.getSpear().onHit(e);
             }
         }, 1L);
@@ -69,7 +70,7 @@ public class Mech implements Listener {
     @EventHandler
     public void onHit2(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof Arrow) {
-            SpearType type = this.spearw.get(e.getDamager());
+            SpearType type = mech.spearw.get(e.getDamager());
             if (type != null) type.getSpear().onHit(e);
         }
     }

@@ -38,12 +38,8 @@ public class Main extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("givespear")) {
-            String white = "";
-            if (sender instanceof Player) {
-                Player p = (Player) sender;
-                if (!p.hasPermission("spear.give")) return false;
-                white = ChatColor.WHITE.toString();
-            }
+            if (!sender.hasPermission("spear.give")) return false;
+            String white = sender instanceof Player ? ChatColor.WHITE.toString() : "";
             if (args.length == 0) {
                 sender.sendMessage(ChatColor.RED + "Too few arguments!" + white + " Do this: /givespear (playername) {spearname} [quantity]");
             } else if (args.length == 1) {
