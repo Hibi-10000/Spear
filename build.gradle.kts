@@ -21,7 +21,14 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.spigotmc", "spigot-api", "1.13.2-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc", "spigot-api", "1.13.2-R0.1-SNAPSHOT") {
+        exclude("com.google.code.gson", "gson")
+        exclude("com.google.guava", "guava")
+        exclude("com.googlecode.json-simple", "json-simple")
+        exclude("commons-lang", "commons-lang")
+        exclude("junit", "junit")
+        exclude("org.yaml", "snakeyaml")
+    }
 }
 
 bukkit {
